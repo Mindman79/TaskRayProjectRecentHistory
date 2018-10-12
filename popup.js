@@ -9,8 +9,6 @@ chrome.history.search({
 (historyItems) => {
   if (historyItems.length > 0) {
     for (i = 0; i <= historyItems.length; i++) {
-
-
       const title1 = historyItems[i].title;
       const title2 = title1.replace('', '');
       const title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
@@ -31,17 +29,15 @@ chrome.history.search({
           hour12: true,
         },
       );
-      // var year = date.getFullYear();
-      // var date1 = date.getDate();
-      // var month = date.getMonth() + 1;
+        // var year = date.getFullYear();
+        // var date1 = date.getDate();
+        // var month = date.getMonth() + 1;
       const html = `<div class="leftListItem">${date2}</div>
-                    <div class="rightListItem"><a href="${url}" target="_blank">${title4}</a></div>`;
+                      <div class="rightListItem"><a href="${url}" target="_blank">${title4}</a></div>`;
 
 
       document.getElementById('htmlList').innerHTML += html;
-
-
     }
   }
-},
-);
+},);
+
