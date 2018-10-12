@@ -1,5 +1,5 @@
 // Find TaskRay project history
-// test
+// testing
 
 chrome.history.search({
   text: '',
