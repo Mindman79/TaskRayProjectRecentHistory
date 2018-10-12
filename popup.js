@@ -2,7 +2,7 @@
 
 
 chrome.history.search({
-    text: 'TaskRay Project: ',
+    text: '',
     maxResults: 25, 
     startTime: 5184000000 },
         function(historyItems) {
