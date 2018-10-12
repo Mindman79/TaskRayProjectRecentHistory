@@ -1,6 +1,7 @@
 //Find TaskRay project history 
 //GitHub Test message #1
 //GitHib test message #2
+//GitHub test message #3
 
 
 chrome.history.search({
