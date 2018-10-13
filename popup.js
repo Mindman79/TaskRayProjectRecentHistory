@@ -1,5 +1,7 @@
 // Find TaskRay project history
-// testing 1
+
+
+var i;
 
 chrome.history.search({
 	text: '',
@@ -8,18 +10,19 @@ chrome.history.search({
 },
 (historyItems) => {
 	if (historyItems.length > 0) {
+		
 		for (i = 0; i <= historyItems.length; i++) {
-			const title1 = historyItems[i].title;
-			const title2 = title1.replace('', '');
-			const title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
+			var title1 = historyItems[i].title;
+			var title2 = title1.replace('', '');
+			var title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
 
-			const title4 = title3.slice(0, 70);
-			const url = historyItems[i].url;
-			const favicon = `chrome://favicon/size/16@2x/${historyItems[i].url}`;
-			const visits = historyItems[i].visitCount;
-			const lastVisit = historyItems[i].lastVisitTime;
-			const date1 = new Date(lastVisit);
-			const date2 = date1.toLocaleString(
+			var title4 = title3.slice(0, 70);
+			var url = historyItems[i].url;
+			// var favicon = `chrome://favicon/size/16@2x/${historyItems[i].url}`;
+			// var visits = historyItems[i].visitCount;
+			var lastVisit = historyItems[i].lastVisitTime;
+			var date1 = new Date(lastVisit);
+			var date2 = date1.toLocaleString(
 				'en-US', {
 					month: '2-digit',
 					day: '2-digit',
@@ -32,7 +35,7 @@ chrome.history.search({
 			// var year = date.getFullYear();
 			// var date1 = date.getDate();
 			// var month = date.getMonth() + 1;
-			const html = `<div class="leftListItem">${date2}</div>
+			var html = `<div class="leftListItem">${date2}</div>
                       <div class="rightListItem"><a href="${url}" target="_blank">${title4}</a></div>`;
 
 
