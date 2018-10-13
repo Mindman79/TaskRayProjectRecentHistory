@@ -1,6 +1,6 @@
 // Find TaskRay project history
 
-jhhklhkj
+
 var i;
 
 chrome.history.search({
