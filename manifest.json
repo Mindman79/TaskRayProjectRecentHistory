@@ -1,5 +1,5 @@
 {
-    "name": "TaskRay Project History Viewer",
+    "name": "TaskRay Project Recent History",
     "version": "1.0",
     "author": "Tristan Kirkham",
     "description": "Quickly and easily access recent history for TaskRay projects in salesforce",
@@ -7,7 +7,7 @@
    
 
     "browser_action": {
-      "default_title": "TaskRay Project History Viewer",
+      "default_title": "TaskRay Project Recent History",
       "default_popup": "popup.html",
       "default_icon": {
         "16": "logo/logo16.png",
