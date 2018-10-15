@@ -1,10 +1,11 @@
 // Find TaskRay project history
 
-
 var i;
+const targets = ['TaskRay']; 
+
 
 chrome.history.search({
-	text: '',
+	text: 'TaskRay Project:',
 	maxResults: 25,
 	startTime: 5184000000,
 },
@@ -12,11 +13,14 @@ chrome.history.search({
 	if (historyItems.length > 0) {
 		
 		for (i = 0; i <= historyItems.length; i++) {
+			
+			
 			var title1 = historyItems[i].title;
-			var title2 = title1.replace('', '');
+			var title2 = title1.replace('TaskRay Project:', '');
 			var title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
 
 			var title4 = title3.slice(0, 70);
+			var results = targets.some(el => title4.includes(el)); 
 			var url = historyItems[i].url;
 			// var favicon = `chrome://favicon/size/16@2x/${historyItems[i].url}`;
 			// var visits = historyItems[i].visitCount;
@@ -36,10 +40,22 @@ chrome.history.search({
 			// var date1 = date.getDate();
 			// var month = date.getMonth() + 1;
 			var html = `<div class="leftListItem">${date2}</div>
-                      <div class="rightListItem"><a href="${url}" target="_blank">${title4}</a></div>`;
+					  <div class="rightListItem"><a href="${url}" target="_blank">${title4}</a></div>`;
+			
+		
+					  if(results == false) {
+				
+				document.getElementById('htmlList').innerHTML += html;
+			
+			}
 
+		/* 	var found = historyItems[i].includes('');
 
-			document.getElementById('htmlList').innerHTML += html;
+			if(found == false) {
+				
+			} */
+			  
+			
 		}
 	}
 },);
