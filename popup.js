@@ -3,10 +3,9 @@
 var i;
 const targets = ['TaskRay']; 
 
-
 chrome.history.search({
 	text: 'TaskRay Project:',
-	maxResults: 25,
+	maxResults: 34,
 	startTime: 5184000000,
 },
 (historyItems) => {
@@ -18,7 +17,6 @@ chrome.history.search({
 			var title1 = historyItems[i].title;
 			var title2 = title1.replace('TaskRay Project:', '');
 			var title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
-
 			var title4 = title3.slice(0, 70);
 			var results = targets.some(el => title4.includes(el)); 
 			var url = historyItems[i].url;
@@ -36,27 +34,16 @@ chrome.history.search({
 					hour12: true,
 				},
 			);
-			// var year = date.getFullYear();
-			// var date1 = date.getDate();
-			// var month = date.getMonth() + 1;
 			var html = `<div class="leftListItem">${date2}</div>
 					  <div class="rightListItem"><a href="${url}" target="_blank">${title4}</a></div>`;
 			
-		
-					  if(results == false) {
+			if(results == false) {
 				
 				document.getElementById('htmlList').innerHTML += html;
 			
 			}
 
-		/* 	var found = historyItems[i].includes('');
-
-			if(found == false) {
-				
-			} */
-			  
 			
 		}
 	}
 },);
-
