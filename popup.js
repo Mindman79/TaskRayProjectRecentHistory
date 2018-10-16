@@ -1,7 +1,10 @@
 // Find TaskRay project history
 
 var i;
+var loopCount = 0;
+const errorMsg = `<div class="error">No TaskRay projects found from within the past 60 days. Go browse some TaskRay projects and try again!</div>`;
 const targets = ['TaskRay']; 
+
 
 chrome.history.search({
 	text: 'TaskRay Project:',
@@ -11,9 +14,7 @@ chrome.history.search({
 (historyItems) => {
 	if (historyItems.length > 0) {
 		
-		for (i = 0; i <= historyItems.length; i++) {
-			
-			
+		for (i = 0; i <= historyItems.length; i++) {	
 			var title1 = historyItems[i].title;
 			var title2 = title1.replace('TaskRay Project:', '');
 			var title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
@@ -40,10 +41,15 @@ chrome.history.search({
 			if(results == false) {
 				
 				document.getElementById('htmlList').innerHTML += html;
-			
+				loopCount++; 
+			}
+
+			if(loopCount == 0) {
+				document.getElementById('htmlList').innerHTML = errorMsg;
 			}
 
 			
 		}
-	}
+
+	} 
 },);
