@@ -21,7 +21,7 @@ chrome.history.search({
 			var title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
 			var title4 = title3.slice(0, 70);
 			var results = targets.some(el => title4.includes(el)); 
-			var url = historyItems[i].url;
+			window.value = historyItems[i].url;
 			// var favicon = `chrome://favicon/size/16@2x/${historyItems[i].url}`;
 			// var visits = historyItems[i].visitCount;
 			var lastVisit = historyItems[i].lastVisitTime;
@@ -37,7 +37,7 @@ chrome.history.search({
 				},
 			);
 			var html = `<div class="leftListItem">${date2}</div>
-					  <div class="rightListItem"><a href="${url}" target="_blank">${title4}</a></div>`;
+					  <div class="rightListItem"><a href="${window.value}" target="_blank">${title4}</a></div>`;
 			
 			if(results == false) {
 				
