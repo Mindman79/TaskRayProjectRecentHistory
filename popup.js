@@ -39,18 +39,15 @@ chrome.history.search({
 					  <div class="rightListItem"><a href="${window.value}" target="_blank">${title4}</a></div>`;
 			
 			if(results == false) {
-				 
+				loopCount++;
 				document.getElementById('htmlList').innerHTML += html;
-				loopCount++; 
 			}
+			
 
-			else if(loopCount == 0) {
+			if(loopCount == 0) {
 				document.getElementById('htmlList').innerHTML = errorMsg;
-
 			
 			}
-
-		
 
 		} 
 
