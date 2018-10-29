@@ -1,6 +1,6 @@
 {
     "name": "TaskRay Project Recent History",
-    "version": "1.4",
+    "version": "1.5",
     "author": "Tristan Kirkham",
     "description": "Quickly and easily access recent history for TaskRay projects in salesforce",
     "permissions": ["history", "tabs"],
