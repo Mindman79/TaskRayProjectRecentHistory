@@ -48,11 +48,11 @@ chrome.history.search({
 				document.getElementById('htmlList').innerHTML = errorMsg;
 
 			
-		}
+			}
 
 		
 
-	} 
+		} 
 
 	
 	}
