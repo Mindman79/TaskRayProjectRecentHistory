@@ -44,7 +44,7 @@ chrome.history.search({
 				loopCount++; 
 			}
 
-			if(loopCount == 0) {
+			else if(loopCount == 0) {
 				document.getElementById('htmlList').innerHTML = errorMsg;
 
 			
@@ -55,7 +55,10 @@ chrome.history.search({
 		} 
 
 	
+	
 	}
+
+	
 },);
 
 
