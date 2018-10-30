@@ -1,6 +1,4 @@
 //Global vars
-var loopCount = 0;
-const errorMsg = '<div class="error">No TaskRay projects found from within the past 60 days. Go browse some TaskRay projects and try again!</div>';
 const targets = ['TaskRay'];
 // const sfUrl = 'https://na53.salesforce.com/_ui/search/ui/UnifiedSearchResults?searchType=2&sen=001&sen=a0o&sen=00T&sen=a2V&sen=500&sen=00U&sen=005&sen=006&sen=ka&sen=a0n&str='; 
 
@@ -39,11 +37,7 @@ chrome.history.search({
 
 
 			if(results == false) {
-				loopCount++;
 				document.getElementById('htmlList').innerHTML += html;
-				
-			} else if(loopCount == 0) {
-				document.getElementById('htmlList').innerHTML = errorMsg;
 				
 			}
 
