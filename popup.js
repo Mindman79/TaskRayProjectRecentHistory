@@ -17,6 +17,8 @@ if(chrome.runtime.id == 'mdkoadabhbefakdgfcfacompaandpeie') {
 	document.getElementById('TRProjHist').innerHTML = popupTitle + ' (Dev. Version)';
 }
 
+function
+
 //Find any Taskray projects in the user's history
 chrome.history.search({
 	text: 'TaskRay Project:',
