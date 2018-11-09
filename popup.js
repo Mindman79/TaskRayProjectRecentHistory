@@ -18,116 +18,99 @@ if(chrome.runtime.id == 'mdkoadabhbefakdgfcfacompaandpeie') {
 } else {
 	document.getElementById('TRProjHist').innerHTML = popupTitle + ' (Dev. Version)';
 }
+	
 
-//Determine the user's salesforce instance to correctly set the URL when used to search salesforce
-function determineSFInstance() {
+function findAndDisplayMatches() {
 	chrome.history.search({
-		text: 'TaskRay Project:',
-		maxResults: 1,
+		text: 'TaskRay Project',
+		maxResults: 25,
 		startTime: 5184000000,
 	},
 	(historyItems) => {
 		if (historyItems.length > 0) {
 			
 			for (var i = 0; i <= historyItems.length; i++) {
-				var urlFromList = historyItems[i].url;
-				var searchTerm = 'salesforce.com';
-				var indexOfFirst = urlFromList.search(searchTerm);
-				if(indexOfFirst !== -1) {
-				 
-					SFInstance = urlFromList.substr(8, indexOfFirst - 9);
-					console.log(SFInstance);
-					return SFInstance;
-			
+	
+				var title1 = historyItems[i].title;
+				var title2 = title1.replace('TaskRay Project:', '');
+				var title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
+				var title4 = title3.slice(0, 70);
+				var results = targets.some(el => title4.includes(el));
+				urlFromList = historyItems[i].url;
+				// var favicon = `chrome://favicon/size/16@2x/${historyItems[i].url}`;
+				// var visits = historyItems[i].visitCount;
+				var lastVisit = historyItems[i].lastVisitTime;
+				var date1 = new Date(lastVisit);
+				var date2 = date1.toLocaleString(
+					'en-US', {
+						month: '2-digit',
+						day: '2-digit',
+						year: '2-digit',
+						hour: '2-digit',
+						minute: 'numeric',
+						hour12: true,
+					},
+				);
+				var html = `<div class="leftListItem">${date2}</div>
+						  <div class="rightListItem"><a href="${urlFromList}" target="_blank">${title4}</a></div>`;
+
+				if (results == false) {
+					document.getElementById('htmlList').innerHTML += html;
+					loopCount++;
+
+				}
+
+				else if (loopCount == 0) {
+					document.getElementById('htmlList').innerHTML = errorMsg;
+
 				}
 
 			}
 		}
-		
 	}
 
 	);}
-	
-//Find any Taskray projects in the user's history
-chrome.history.search({
-	text: 'TaskRay Project:',
-	maxResults: 34,
-	startTime: 5184000000,
-},
-(historyItems) => {
-	if (historyItems.length > 0) {
 		
-		for (var i = 0; i <= historyItems.length; i++) {	
-			var title1 = historyItems[i].title;
-			var title2 = title1.replace('TaskRay Project:', '');
-			var title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
-			var title4 = title3.slice(0, 70);
-			var results = targets.some(el => title4.includes(el)); 
-			urlFromList = historyItems[i].url;
+function getSFInstanceURL() {
+	chrome.history.search({
+		text: 'TaskRay Project',
+		maxResults: 1,
+		startTime: 5184000000,
+	},
+	(historyItems) => {
+		if (historyItems.length > 0) {
 
-			/* var searchTerm = 'salesforce.com';
-			var indexOfFirst = urlFromList.search(searchTerm);
-			if(indexOfFirst !== -1) {
-				 
-				var SFInstance = urlFromList.substr(8, indexOfFirst - 9);
-				console.log(SFInstance);
-			
-			} */
-
-			// var favicon = `chrome://favicon/size/16@2x/${historyItems[i].url}`;
-			// var visits = historyItems[i].visitCount;
-			var lastVisit = historyItems[i].lastVisitTime;
-			var date1 = new Date(lastVisit);
-			var date2 = date1.toLocaleString(
-				'en-US', {
-					month: '2-digit',
-					day: '2-digit',
-					year: '2-digit',
-					hour: '2-digit',
-					minute: 'numeric',
-					hour12: true,
-				},
-			);
-			var html = `<div class="leftListItem">${date2}</div>
-					  <div class="rightListItem"><a href="${urlFromList}" target="_blank">${title4}</a></div>`;
-			
-			if(results == false) {
-				document.getElementById('htmlList').innerHTML += html;
-				loopCount++; 
-				
+			for (var i = 0; i <= historyItems.length; i++) {
+				var urlFromList = historyItems[i].url;
+				var searchTerm = 'salesforce.com';
+				var indexOfFirst = urlFromList.search(searchTerm);
+				if (indexOfFirst !== -1) {
+					SFInstance = urlFromList.substr(8, indexOfFirst - 9);
+					console.log(SFInstance);
+					return SFInstance;
+				}
 			}
 
-
-			else if(loopCount == 0) {
-				document.getElementById('htmlList').innerHTML = errorMsg;
-
-			
-			}
-
-		
-
-		} 
-
-	
+		}
 	}
-},);
+	);}
 
-determineSFInstance();
+findAndDisplayMatches();
+getSFInstanceURL();
 
 window.onload=function() {
 
-	
-
 	document.getElementById('my-form').onsubmit=function() {
-
+	
 		var searchTerm = document.getElementById('my-form').elements[0].value;
-		
+			
 		var finalUrl = 'https://' + SFInstance + SFSearchUrl + searchTerm;
 		console.log(finalUrl);
 		window.open(finalUrl);
-		
+			
 		return false;
-		
+			
 	};
 };
+	
 
