@@ -1,13 +1,15 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 // Global vars
 var loopCount = 0;
+var SFInstance;
 var urlFromList;
 
 
 const errorMsg = '<div class="error">No TaskRay projects found from within the past 60 days. Go browse some TaskRay projects and try again!</div>';
 const targets = ['TaskRay'];
-const sfUrl = 'https://na53.salesforce.com/_ui/search/ui/UnifiedSearchResults?searchType=2&sen=001&sen=a0o&sen=00T&sen=a2V&sen=500&sen=00U&sen=005&sen=006&sen=ka&sen=a0n&str='; 
+const SFSearchUrl = '.salesforce.com/_ui/search/ui/UnifiedSearchResults?searchType=2&sen=001&sen=a0o&sen=00T&sen=a2V&sen=500&sen=00U&sen=005&sen=006&sen=ka&sen=a0n&str='; 
 const popupTitle = 'Recent TaskRay Projects';
+
 
 //Check if running dev. version or live version
 if(chrome.runtime.id == 'mdkoadabhbefakdgfcfacompaandpeie') {
@@ -17,8 +19,35 @@ if(chrome.runtime.id == 'mdkoadabhbefakdgfcfacompaandpeie') {
 	document.getElementById('TRProjHist').innerHTML = popupTitle + ' (Dev. Version)';
 }
 
-function
+//Determine the user's salesforce instance to correctly set the URL when used to search salesforce
+function determineSFInstance() {
+	chrome.history.search({
+		text: 'TaskRay Project:',
+		maxResults: 1,
+		startTime: 5184000000,
+	},
+	(historyItems) => {
+		if (historyItems.length > 0) {
+			
+			for (var i = 0; i <= historyItems.length; i++) {
+				var urlFromList = historyItems[i].url;
+				var searchTerm = 'salesforce.com';
+				var indexOfFirst = urlFromList.search(searchTerm);
+				if(indexOfFirst !== -1) {
+				 
+					SFInstance = urlFromList.substr(8, indexOfFirst - 9);
+					console.log(SFInstance);
+					return SFInstance;
+			
+				}
 
+			}
+		}
+		
+	}
+
+	);}
+	
 //Find any Taskray projects in the user's history
 chrome.history.search({
 	text: 'TaskRay Project:',
@@ -36,14 +65,14 @@ chrome.history.search({
 			var results = targets.some(el => title4.includes(el)); 
 			urlFromList = historyItems[i].url;
 
-			var searchTerm = 'salesforce.com';
+			/* var searchTerm = 'salesforce.com';
 			var indexOfFirst = urlFromList.search(searchTerm);
 			if(indexOfFirst !== -1) {
 				 
 				var SFInstance = urlFromList.substr(8, indexOfFirst - 9);
 				console.log(SFInstance);
 			
-			}
+			} */
 
 			// var favicon = `chrome://favicon/size/16@2x/${historyItems[i].url}`;
 			// var visits = historyItems[i].visitCount;
@@ -83,15 +112,22 @@ chrome.history.search({
 	}
 },);
 
+determineSFInstance();
 
 window.onload=function() {
+
+	
+
 	document.getElementById('my-form').onsubmit=function() {
 
 		var searchTerm = document.getElementById('my-form').elements[0].value;
 		
-		window.open(sfUrl + searchTerm);
+		var finalUrl = 'https://' + SFInstance + SFSearchUrl + searchTerm;
+		console.log(finalUrl);
+		window.open(finalUrl);
+		
 		return false;
+		
 	};
 };
-
 
