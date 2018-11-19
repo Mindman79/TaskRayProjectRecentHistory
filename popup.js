@@ -5,10 +5,12 @@ var SFInstance;
 var urlFromList;
 
 
+
 const errorMsg = '<div class="error">No TaskRay projects found from within the past 60 days. Go browse some TaskRay projects and try again!</div>';
 const targets = ['TaskRay'];
 const SFSearchUrl = '.salesforce.com/_ui/search/ui/UnifiedSearchResults?searchType=2&sen=001&sen=a0o&sen=00T&sen=a2V&sen=500&sen=00U&sen=005&sen=006&sen=ka&sen=a0n&str='; 
 const popupTitle = 'Recent TaskRay Projects';
+
 
 
 //Check if running dev. version or live version
@@ -57,11 +59,13 @@ function findAndDisplayMatches() {
 				if (results == false) {
 					document.getElementById('htmlList').innerHTML += html;
 					loopCount++;
+					
 
 				}
 
 				else if (loopCount == 0) {
-					document.getElementById('htmlList').innerHTML = errorMsg;
+					 document.getElementById('htmlList').innerHTML = errorMsg;
+					 
 
 				}
 
@@ -69,12 +73,21 @@ function findAndDisplayMatches() {
 		}
 	}
 
-	);}
+
+
+	);
+
+	
+}
+
+
+
+
 		
 function getSFInstanceURL() {
 	chrome.history.search({
 		text: 'TaskRay Project',
-		maxResults: 1,
+		maxResults: 10,
 		startTime: 5184000000,
 	},
 	(historyItems) => {
@@ -95,22 +108,45 @@ function getSFInstanceURL() {
 	}
 	);}
 
-findAndDisplayMatches();
-getSFInstanceURL();
 
-window.onload=function() {
+
+
+
+
+function searchForm() {
+	document.getElementById('form').innerHTML = 
+	`<form id="my-form">
+	  <input type="text" name="in" placeholder="Search salesforce..." />
+	  <button type="submit" class="submit">Go</button>
+	 </form>`;
+	
+}
+
+
+function captureInput(){
 
 	document.getElementById('my-form').onsubmit=function() {
 	
 		var searchTerm = document.getElementById('my-form').elements[0].value;
 			
 		var finalUrl = 'https://' + SFInstance + SFSearchUrl + searchTerm;
-		console.log(finalUrl);
 		window.open(finalUrl);
 			
 		return false;
 			
 	};
-};
+}
+
+findAndDisplayMatches();
+
+if(loopCount > 0) {
+	searchForm();
+	getSFInstanceURL();
+	captureInput();
+} else { 
+	console.log('Your mom!!');
+}
+
+
 	
 
