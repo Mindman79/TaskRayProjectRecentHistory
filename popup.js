@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 // Global vars
-var loopCount = 0;
+
 var SFInstance;
 var urlFromList;
 
@@ -23,6 +23,7 @@ if(chrome.runtime.id == 'mdkoadabhbefakdgfcfacompaandpeie') {
 	
 
 function findAndDisplayMatches() {
+	
 	chrome.history.search({
 		text: 'TaskRay Project',
 		maxResults: 25,
@@ -32,7 +33,7 @@ function findAndDisplayMatches() {
 		if (historyItems.length > 0) {
 			
 			for (var i = 0; i <= historyItems.length; i++) {
-	
+				var loopCount = 0;
 				var title1 = historyItems[i].title;
 				var title2 = title1.replace('TaskRay Project:', '');
 				var title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
@@ -122,7 +123,7 @@ function searchForm() {
 	
 }
 
-
+//Function to capture input
 function captureInput(){
 
 	document.getElementById('my-form').onsubmit=function() {
@@ -138,6 +139,7 @@ function captureInput(){
 }
 
 findAndDisplayMatches();
+console.log(loopCount);
 
 if(loopCount > 0) {
 	searchForm();
