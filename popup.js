@@ -3,6 +3,7 @@
 
 var SFInstance;
 var urlFromList;
+var loopCount = 0;
 
 
 
@@ -32,7 +33,6 @@ chrome.history.search({
 	if (historyItems.length > 0) {
 			
 		for (var i = 0; i <= historyItems.length; i++) {
-			var loopCount = 0;
 			var title1 = historyItems[i].title;
 			var title2 = title1.replace('TaskRay Project:', '');
 			var title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
