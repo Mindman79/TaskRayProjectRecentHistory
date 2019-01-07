@@ -12,7 +12,6 @@ const SFSearchUrl = '.salesforce.com/_ui/search/ui/UnifiedSearchResults?searchTy
 const popupTitle = 'Recent TaskRay Projects';
 
 
-
 //Check if running dev. version or live version
 if(chrome.runtime.id == 'mdkoadabhbefakdgfcfacompaandpeie') {
 	document.getElementById('TRProjHist').innerHTML = popupTitle;
@@ -22,69 +21,74 @@ if(chrome.runtime.id == 'mdkoadabhbefakdgfcfacompaandpeie') {
 }
 	
 
-function findAndDisplayMatches() {
-	
-	chrome.history.search({
-		text: 'TaskRay Project',
-		maxResults: 25,
-		startTime: 5184000000,
-	},
-	(historyItems) => {
-		if (historyItems.length > 0) {
+
+
+chrome.history.search({
+	text: 'TaskRay Project',
+	maxResults: 25,
+	startTime: 5184000000,
+},
+(historyItems) => {
+	if (historyItems.length > 0) {
 			
-			for (var i = 0; i <= historyItems.length; i++) {
-				var loopCount = 0;
-				var title1 = historyItems[i].title;
-				var title2 = title1.replace('TaskRay Project:', '');
-				var title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
-				var title4 = title3.slice(0, 70);
-				var results = targets.some(el => title4.includes(el));
-				urlFromList = historyItems[i].url;
-				// var favicon = `chrome://favicon/size/16@2x/${historyItems[i].url}`;
-				// var visits = historyItems[i].visitCount;
-				var lastVisit = historyItems[i].lastVisitTime;
-				var date1 = new Date(lastVisit);
-				var date2 = date1.toLocaleString(
-					'en-US', {
-						month: '2-digit',
-						day: '2-digit',
-						year: '2-digit',
-						hour: '2-digit',
-						minute: 'numeric',
-						hour12: true,
-					},
-				);
-				var html = `<div class="leftListItem">${date2}</div>
+		for (var i = 0; i <= historyItems.length; i++) {
+			var loopCount = 0;
+			var title1 = historyItems[i].title;
+			var title2 = title1.replace('TaskRay Project:', '');
+			var title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
+			var title4 = title3.slice(0, 70);
+			var results = targets.some(el => title4.includes(el));
+			urlFromList = historyItems[i].url;
+			// var favicon = `chrome://favicon/size/16@2x/${historyItems[i].url}`;
+			// var visits = historyItems[i].visitCount;
+			var lastVisit = historyItems[i].lastVisitTime;
+			var date1 = new Date(lastVisit);
+			var date2 = date1.toLocaleString(
+				'en-US', {
+					month: '2-digit',
+					day: '2-digit',
+					year: '2-digit',
+					hour: '2-digit',
+					minute: 'numeric',
+					hour12: true,
+				},
+			);
+			var html = `<div class="leftListItem">${date2}</div>
 						  <div class="rightListItem"><a href="${urlFromList}" target="_blank">${title4}</a></div>`;
 
-				if (results == false) {
-					document.getElementById('htmlList').innerHTML += html;
-					loopCount++;
+			if (results == false) {
+				document.getElementById('htmlList').innerHTML += html;
+				loopCount++;
+				searchForm();
+				getSFInstanceURL();
+				captureInput();
 					
 
-				}
+			}
 
-				else if (loopCount == 0) {
+			else if (loopCount == 0) {
 					 document.getElementById('htmlList').innerHTML = errorMsg;
 					 
 
-				}
-
 			}
+	
+
 		}
 	}
-
-
-
-	);
 
 	
 }
 
 
 
+);
 
-		
+
+	
+	
+
+
+//Determine user's SF instance		
 function getSFInstanceURL() {
 	chrome.history.search({
 		text: 'TaskRay Project',
@@ -100,20 +104,16 @@ function getSFInstanceURL() {
 				var indexOfFirst = urlFromList.search(searchTerm);
 				if (indexOfFirst !== -1) {
 					SFInstance = urlFromList.substr(8, indexOfFirst - 9);
-					console.log(SFInstance);
 					return SFInstance;
 				}
 			}
 
 		}
 	}
-	);}
+	);
+}
 
-
-
-
-
-
+//Function to display the SF search box
 function searchForm() {
 	document.getElementById('form').innerHTML = 
 	`<form id="my-form">
@@ -138,17 +138,5 @@ function captureInput(){
 	};
 }
 
-findAndDisplayMatches();
-console.log(loopCount);
 
-if(loopCount > 0) {
-	searchForm();
-	getSFInstanceURL();
-	captureInput();
-} else { 
-	console.log('Your mom!!');
-}
-
-
-	
 
