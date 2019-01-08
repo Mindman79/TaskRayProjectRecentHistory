@@ -3,7 +3,7 @@
 
 var SFInstance;
 var urlFromList;
-var loopCount = 0;
+
 
 
 
@@ -30,9 +30,11 @@ chrome.history.search({
 	startTime: 5184000000,
 },
 (historyItems) => {
+	var loopCount = 0;
 	if (historyItems.length > 0) {
 			
 		for (var i = 0; i <= historyItems.length; i++) {
+			
 			var title1 = historyItems[i].title;
 			var title2 = title1.replace('TaskRay Project:', '');
 			var title3 = title2.replace(' ~ Salesforce - Unlimited Edition', '');
@@ -66,25 +68,29 @@ chrome.history.search({
 
 			}
 
-			else if (loopCount == 0) {
-					 document.getElementById('htmlList').innerHTML = errorMsg;
+			else if (results == true && loopCount == 0) {
+				document.getElementById('htmlList').innerHTML = errorMsg;
+			}
+				
+			
 					 
 
-			}
-	
-
 		}
+	
+
 	}
+}
 
 	
-}
+
+
 
 
 
 );
 
 
-	
+
 	
 
 
