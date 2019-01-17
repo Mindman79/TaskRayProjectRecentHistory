@@ -1,15 +1,8 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 // Global vars
-
 var SFInstance;
 var urlFromList;
-
 var loopCount = 0;
-var matchesFound = false;
-
-
-
-
 const errorMsg = '<div class="error">No TaskRay projects found from within the past 60 days. Go browse some TaskRay projects and try again!</div>';
 const targets = ['TaskRay'];
 const SFSearchUrl = '.salesforce.com/_ui/search/ui/UnifiedSearchResults?searchType=2&sen=001&sen=a0o&sen=00T&sen=a2V&sen=500&sen=00U&sen=005&sen=006&sen=ka&sen=a0n&str='; 
@@ -23,10 +16,8 @@ if(chrome.runtime.id == 'mdkoadabhbefakdgfcfacompaandpeie') {
 } else {
 	document.getElementById('TRProjHist').innerHTML = popupTitle + ' (Dev. Version)';
 }
-	
 
-
-
+//Loop through results to find TaskRay projects
 chrome.history.search({
 	text: 'TaskRay Project',
 	maxResults: 25,
@@ -71,48 +62,14 @@ chrome.history.search({
 
 			}
 
-			//resume here
-			if(loopCount == 0) {
-				continue;
-				
-			} 
-			
-			else if (loopCount >= 1) {
-				matchesFound = true;
-
-			}
-			
-			
-			
-			else if (matchesFound == false && loopCount == 0) {
-				document.getElementById('htmlList').innerHTML = errorMsg;
-			}
-
-			
-
-
-				
-			
-					 
-
 		}
 	
 
 	}
 }
 
-	
-
-
-
-
 
 );
-
-
-
-	
-
 
 //Determine user's SF instance		
 function getSFInstanceURL() {
@@ -139,7 +96,7 @@ function getSFInstanceURL() {
 	);
 }
 
-//Function to display the SF search box
+//Display the SF search box
 function searchForm() {
 	document.getElementById('form').innerHTML = 
 	`<form id="my-form">
@@ -163,6 +120,3 @@ function captureInput(){
 			
 	};
 }
-
-
-
