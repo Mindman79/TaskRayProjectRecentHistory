@@ -14,8 +14,10 @@ h2 {
 }
 
 
-div.title {
-    border-width: 0px 0px 1px 0px;
+
+
+div.popupTitle {
+    border-width: 0px 0px 0px 0px;
     border-color: silver;
     border-style: solid;
     display: flex;
@@ -33,9 +35,6 @@ div.leftListItem {
     border-right-color: silver;
     border-right-width: 1px;
     display: table;
-    
-   
-    
     
     
 }
@@ -63,3 +62,23 @@ a:hover, a:visited, a:link, a:active {
     text-decoration: none;
     
 }
+
+input[type=text] {
+    width: 90%;
+    padding: 6px 6px;
+    box-sizing: border-box;
+    margin-right: 0px;
+}
+
+.submit {
+    width: 9%;
+    padding: 6px 6px;
+    box-sizing: border-box;
+    margin-left: 0px;
+}
+
+/* input[type=button], input[type=submit], input[type=reset] {
+    width: 20%;
+    padding: 6px 6px;
+    box-sizing: border-box;
+} */
