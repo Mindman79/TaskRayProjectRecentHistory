@@ -4,6 +4,9 @@
 var SFInstance;
 var urlFromList;
 
+var loopCount = 0;
+var matchesFound = false;
+
 
 
 
@@ -30,7 +33,7 @@ chrome.history.search({
 	startTime: 5184000000,
 },
 (historyItems) => {
-	var loopCount = 0;
+	
 	if (historyItems.length > 0) {
 			
 		for (var i = 0; i <= historyItems.length; i++) {
@@ -68,9 +71,26 @@ chrome.history.search({
 
 			}
 
-			else if (results == true && loopCount == 0) {
+			//resume here
+			if(loopCount == 0) {
+				continue;
+				
+			} 
+			
+			else if (loopCount >= 1) {
+				matchesFound = true;
+
+			}
+			
+			
+			
+			else if (matchesFound == false && loopCount == 0) {
 				document.getElementById('htmlList').innerHTML = errorMsg;
 			}
+
+			
+
+
 				
 			
 					 
